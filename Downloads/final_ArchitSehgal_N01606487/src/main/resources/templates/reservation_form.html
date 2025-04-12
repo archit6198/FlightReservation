@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reservation Form</title>
+</head>
+<body>
+<h2>Flight Reservation</h2>
+
+<form th:action="@{/reservation}" th:object="${reservation}" method="post">
+    <div th:if="${#fields.hasErrors('*')}">
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+        </ul>
+    </div>
+
+    Flight Number: <input type="text" th:field="*{flightNumber}" required /><br/>
+
+    Date: <input type="date" th:field="*{date}" required /><br/>
+
+    <h3>Customer Info</h3>
+    Name: <input type="text" th:field="*{customer.name}" required /><br/>
+    Email: <input type="email" th:field="*{customer.email}" required /><br/>
+
+    <h3>Payment Info</h3>
+    Card Number: <input type="text" th:field="*{payment.cardNumber}" required /><br/>
+    Amount: <input type="number" th:field="*{payment.amount}" step="0.01" min="0.01" required /><br/>
+
+    <button type="submit">Submit</button>
+</form>
+
+<p th:text="${message}"></p>
+</body>
+</html>
